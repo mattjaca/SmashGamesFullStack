@@ -12,47 +12,47 @@ namespace SmashGames.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MetasController : ControllerBase
+    public class StudiosController : ControllerBase
     {
         private readonly SmashContext _context;
 
-        public MetasController(SmashContext context)
+        public StudiosController(SmashContext context)
         {
             _context = context;
         }
 
-        // GET: api/Metas
+        // GET: api/Studios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Meta>>> GetMeta()
+        public async Task<ActionResult<IEnumerable<Studio>>> GetStudios()
         {
-            return await _context.Meta.ToListAsync();
+            return await _context.Studios.ToListAsync();
         }
 
-        // GET: api/Metas/5
+        // GET: api/Studios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Meta>> GetMeta(int id)
+        public async Task<ActionResult<Studio>> GetStudio(int id)
         {
-            var meta = await _context.Meta.FindAsync(id);
+            var studio = await _context.Studios.FindAsync(id);
 
-            if (meta == null)
+            if (studio == null)
             {
                 return NotFound();
             }
 
-            return meta;
+            return studio;
         }
 
-        // PUT: api/Metas/5
+        // PUT: api/Studios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMeta(int id, Meta meta)
+        public async Task<IActionResult> PutStudio(int id, Studio studio)
         {
-            if (id != meta.MetaID)
+            if (id != studio.StudioID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(meta).State = EntityState.Modified;
+            _context.Entry(studio).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace SmashGames.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MetaExists(id))
+                if (!StudioExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace SmashGames.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Metas
+        // POST: api/Studios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Meta>> PostMeta(Meta meta)
+        public async Task<ActionResult<Studio>> PostStudio(Studio studio)
         {
-            _context.Meta.Add(meta);
+            _context.Studios.Add(studio);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMeta", new { id = meta.MetaID }, meta);
+            return CreatedAtAction("GetStudio", new { id = studio.StudioID }, studio);
         }
 
-        // DELETE: api/Metas/5
+        // DELETE: api/Studios/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMeta(int id)
+        public async Task<IActionResult> DeleteStudio(int id)
         {
-            var meta = await _context.Meta.FindAsync(id);
-            if (meta == null)
+            var studio = await _context.Studios.FindAsync(id);
+            if (studio == null)
             {
                 return NotFound();
             }
 
-            _context.Meta.Remove(meta);
+            _context.Studios.Remove(studio);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MetaExists(int id)
+        private bool StudioExists(int id)
         {
-            return _context.Meta.Any(e => e.MetaID == id);
+            return _context.Studios.Any(e => e.StudioID == id);
         }
     }
 }

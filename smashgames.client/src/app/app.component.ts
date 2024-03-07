@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 import { BehaviorSubject } from 'rxjs';
-import { Meta } from './Models/meta';
+import { Studio } from './Models/studio';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { Meta } from './Models/meta';
 })
 export class AppComponent implements OnInit {
 
-  meta: BehaviorSubject<Meta> = this.data.studio;
+  meta: BehaviorSubject<Studio> = this.data.studio$;
 
   constructor(private data: DataService) { }
 

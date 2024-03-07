@@ -6,23 +6,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmashGames.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class AddInitial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Meta",
+                name: "Studios",
                 columns: table => new
                 {
-                    MetaID = table.Column<int>(type: "int", nullable: false)
+                    StudioID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Meta", x => x.MetaID);
+                    table.PrimaryKey("PK_Studios", x => x.StudioID);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,16 +38,16 @@ namespace SmashGames.Server.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MetaID = table.Column<int>(type: "int", nullable: true)
+                    StudioID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Games", x => x.GameID);
                     table.ForeignKey(
-                        name: "FK_Games_Meta_MetaID",
-                        column: x => x.MetaID,
-                        principalTable: "Meta",
-                        principalColumn: "MetaID");
+                        name: "FK_Games_Studios_StudioID",
+                        column: x => x.StudioID,
+                        principalTable: "Studios",
+                        principalColumn: "StudioID");
                 });
 
             migrationBuilder.CreateTable(
@@ -78,9 +78,9 @@ namespace SmashGames.Server.Migrations
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Games_MetaID",
+                name: "IX_Games_StudioID",
                 table: "Games",
-                column: "MetaID");
+                column: "StudioID");
         }
 
         /// <inheritdoc />
@@ -93,7 +93,7 @@ namespace SmashGames.Server.Migrations
                 name: "Games");
 
             migrationBuilder.DropTable(
-                name: "Meta");
+                name: "Studios");
         }
     }
 }

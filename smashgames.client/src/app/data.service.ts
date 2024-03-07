@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Meta } from './Models/meta';
+import { Studio } from './Models/studio';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
 
-  studio: BehaviorSubject<Meta> = new BehaviorSubject<Meta>({});
+  studio$: BehaviorSubject<Studio> = new BehaviorSubject<Studio>({});
 
   constructor(private http: HttpClient) { }
 

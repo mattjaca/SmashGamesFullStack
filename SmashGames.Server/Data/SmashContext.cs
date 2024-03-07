@@ -14,7 +14,7 @@ namespace SmashGames.Server.Data
         {
         }
 
-        public DbSet<Meta> Meta { get; set; } = default!;
+        public DbSet<Studio> Studios { get; set; } = default!;
         public DbSet<Game> Games { get; set; } = default!;
         public DbSet<GameFeature> GameFeatures { get; set; } = default!;
 
@@ -22,7 +22,7 @@ namespace SmashGames.Server.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Meta>().Navigation(m => m.Games).AutoInclude();
+            modelBuilder.Entity<Studio>().Navigation(m => m.Games).AutoInclude();
             modelBuilder.Entity<Game>().Navigation(g => g.Features).AutoInclude();
         }
     }

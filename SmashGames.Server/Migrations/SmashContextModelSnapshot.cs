@@ -41,15 +41,15 @@ namespace SmashGames.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MetaID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StudioID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -60,7 +60,7 @@ namespace SmashGames.Server.Migrations
 
                     b.HasKey("GameID");
 
-                    b.HasIndex("MetaID");
+                    b.HasIndex("StudioID");
 
                     b.ToTable("Games");
                 });
@@ -95,13 +95,13 @@ namespace SmashGames.Server.Migrations
                     b.ToTable("GameFeatures");
                 });
 
-            modelBuilder.Entity("SmashGames.Server.Models.Meta", b =>
+            modelBuilder.Entity("SmashGames.Server.Models.Studio", b =>
                 {
-                    b.Property<int>("MetaID")
+                    b.Property<int>("StudioID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MetaID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudioID"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -111,16 +111,16 @@ namespace SmashGames.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MetaID");
+                    b.HasKey("StudioID");
 
-                    b.ToTable("Meta");
+                    b.ToTable("Studios");
                 });
 
             modelBuilder.Entity("SmashGames.Server.Models.Game", b =>
                 {
-                    b.HasOne("SmashGames.Server.Models.Meta", null)
+                    b.HasOne("SmashGames.Server.Models.Studio", null)
                         .WithMany("Games")
-                        .HasForeignKey("MetaID");
+                        .HasForeignKey("StudioID");
                 });
 
             modelBuilder.Entity("SmashGames.Server.Models.GameFeature", b =>
@@ -139,7 +139,7 @@ namespace SmashGames.Server.Migrations
                     b.Navigation("Features");
                 });
 
-            modelBuilder.Entity("SmashGames.Server.Models.Meta", b =>
+            modelBuilder.Entity("SmashGames.Server.Models.Studio", b =>
                 {
                     b.Navigation("Games");
                 });
