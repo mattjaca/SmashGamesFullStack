@@ -1,16 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Studio } from './Models/studio';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Game } from './Models/game';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  studio$: BehaviorSubject<Studio> = new BehaviorSubject<Studio>({});
+  studio$: BehaviorSubject<Studio> = new BehaviorSubject<Studio>({
+    name: '',
+    description: '',
+    games: {
+      $values: []
+    }
+  });
 
-  constructor(private http: HttpClient) { }
+  games$: BehaviorSubject<Game[]> = new BehaviorSubject<Game[]>([]);
 
-  // hook up our api to return the studio information and save back as the next value of this.studio
+  constructor(private http: HttpClient) {
+    this.getStudio(1);
+  }
+
+  getAllStudios(): Observable<Studio[]> {
+   return this.http.get<Studio[]>('/api/Studios');
+  }
+  getStudio(id: number) {
+    this.http.get<Studio>('/api/Studios/' + id).subscribe(data => {
+      this.studio$.next(data);
+      this.games$.next(data.games.$values);
+    })
+  }
 }
